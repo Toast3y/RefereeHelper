@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal|top">
+
+        <TextView
+            android:layout_width="246dp"
+            android:layout_height="39dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Add New Player
+            "
+            android:id="@+id/textView"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textIsSelectable="false"
+            android:textSize="32sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="247dp"
+        android:layout_gravity="center">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_gravity="center_horizontal|top" />
+
+        <RadioButton
+            android:layout_width="187dp"
+            android:layout_height="80dp"
+            android:text="Blue Team"
+            android:id="@+id/radioButton2"
+            android:layout_gravity="right|bottom"
+            android:textColor="#0000FF" />
+
+        <RadioButton
+            android:layout_width="196dp"
+            android:layout_height="80dp"
+            android:text="Red Team"
+            android:id="@+id/radioButton"
+            android:layout_gravity="left|bottom"
+            android:textColor="#FF0000" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="129dp"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Add Player"
+            android:id="@+id/button3"
+            android:layout_gravity="center"
+            android:textSize="32sp" />
+    </FrameLayout>
+</FrameLayout>
