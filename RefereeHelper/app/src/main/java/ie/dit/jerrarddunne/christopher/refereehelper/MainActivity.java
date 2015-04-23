@@ -11,8 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
@@ -22,6 +29,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     private long timeElapsed;
     private long timeStopped;
     private boolean matchStarted;
+
+    private String newplayername;
+    private int newplayerteam;
+
+    List<Player> redTeam = new ArrayList<Player>();
+    List<Player> blueTeam = new ArrayList<Player>();
+
+    ListView redTeamView;
+    ListView blueTeamView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +53,21 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         findViewById(R.id.timer_button).setOnClickListener(this);
         findViewById(R.id.new_match_button).setOnClickListener(this);
         findViewById(R.id.add_player_button).setOnClickListener(this);
+        redTeamView = (ListView) findViewById(R.id.team1);
+        blueTeamView = (ListView) findViewById(R.id.team2);
+
+        //Values passed to program from AddPlayer class
+        newplayername = getIntent().getStringExtra("player.PlayerName");
+        newplayerteam = getIntent().getIntExtra("player.Team", 0);
+
+        if (newplayerteam == 1){
+            addRedPlayers(newplayername, newplayerteam);
+            populateRedTeam();
+        }
+        else if (newplayerteam == 2){
+            addBluePlayers(newplayername, newplayerteam);
+            populateBlueTeam();
+        }
     }
 
 
@@ -73,6 +104,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
                 break;
             case R.id.new_match_button:
                     NewMatch();
+                break;
+            case R.id.add_player_button:
+                    AddPlayer();
                 break;
         }
     }
@@ -116,9 +150,22 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
     }
 
 
-    public void AddPlayer(View view){
+    public void AddPlayer(){
         Intent i = new Intent(this, AddPlayer.class);
         startActivity(i);
+
+        //Values passed to program from AddPlayer class
+        newplayername = getIntent().getStringExtra("player.PlayerName");
+        newplayerteam = getIntent().getIntExtra("player.Team", 0);
+
+        if (newplayerteam == 1){
+            addRedPlayers(newplayername, newplayerteam);
+            populateRedTeam();
+        }
+        else if (newplayerteam == 2){
+            addBluePlayers(newplayername, newplayerteam);
+            populateBlueTeam();
+        }
     }
 
 
@@ -144,4 +191,83 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
     }
 
+
+    //Adapters for both list views to display both teams
+    //Code referenced from "Android Studio App Development | Adding the Contact List" Tutorial
+    //https://www.youtube.com/watch?v=h7w3bveUfFA
+    private class RedTeamListAdapter extends ArrayAdapter<Player>{
+
+        public RedTeamListAdapter(){
+            super(MainActivity.this, R.layout.redteam_layout);
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent){
+            if (view == null){
+                view = getLayoutInflater().inflate(R.layout.redteam_layout, parent, false);
+            }
+
+            //Get all stats for each player in the list to display and return them as a view
+            Player currentRedPlayer = redTeam.get(position);
+
+            TextView name = (TextView) view.findViewById(R.id.redplayerName);
+            name.setText(currentRedPlayer.getPlayerName());
+
+            //TextView number = (TextView) view.findViewById(R.id.redplayerNumber);
+            //number.setText(redTeam.get(position).toString());
+
+            return view;
+        }
+
+    }
+
+    private class BlueTeamListAdapter extends ArrayAdapter<Player>{
+
+        public BlueTeamListAdapter(){
+            super(MainActivity.this, R.layout.blueteam_layout);
+        }
+
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.blueteam_layout, parent, false);
+            }
+
+
+            Player currentBluePlayer = blueTeam.get(position);
+
+            TextView name = (TextView) view.findViewById(R.id.blueplayerName);
+            name.setText(currentBluePlayer.getPlayerName());
+
+            //TextView number = (TextView) view.findViewById(R.id.blueplayerNumber);
+            //number.setText(blueTeam.get(position).toString());
+
+
+            return view;
+
+        }
+    }
+
+
+
+
+    private void addRedPlayers(String PlayerName, int Team){
+        redTeam.add(new Player(PlayerName, Team));
+    }
+
+    private void addBluePlayers(String PlayerName, int Team){
+        blueTeam.add(new Player(PlayerName, Team));
+    }
+
+
+    private void populateRedTeam(){
+        ArrayAdapter<Player> adapter = new RedTeamListAdapter();
+        redTeamView.setAdapter(adapter);
+    }
+
+    private void populateBlueTeam(){
+        ArrayAdapter<Player> adapter = new BlueTeamListAdapter();
+        blueTeamView.setAdapter(adapter);
+    }
 }

@@ -30,26 +30,34 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="Name"
             android:ems="10"
-            android:id="@+id/editText"
-            android:layout_gravity="center_horizontal|top" />
-
-        <RadioButton
-            android:layout_width="187dp"
+            android:id="@+id/newplayername"
+            android:layout_gravity="center_horizontal|top"
+            android:textSize="32sp" />
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="Blue Team"
-            android:id="@+id/radioButton2"
-            android:layout_gravity="right|bottom"
-            android:textColor="#0000FF" />
+            android:layout_gravity="bottom"
+            android:id="@+id/team_radio">
 
-        <RadioButton
-            android:layout_width="196dp"
-            android:layout_height="80dp"
-            android:text="Red Team"
-            android:id="@+id/radioButton"
-            android:layout_gravity="left|bottom"
-            android:textColor="#FF0000" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blue Team"
+                android:id="@+id/select_blue_team"
+                android:textColor="#0000FF"
+                android:textSize="32sp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red Team"
+                android:id="@+id/select_red_team"
+                android:textColor="#FF0000"
+                android:textSize="32sp" />
+
+        </RadioGroup>
     </FrameLayout>
 
     <FrameLayout
@@ -58,11 +66,23 @@
         android:layout_gravity="center_horizontal|bottom">
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Add Player"
-            android:id="@+id/button3"
-            android:layout_gravity="center"
-            android:textSize="32sp" />
+            android:layout_width="155dp"
+            android:layout_height="85dp"
+            android:text="Return"
+            android:id="@+id/return_button"
+            android:layout_gravity="right|center_vertical"
+            android:textSize="32sp"
+            android:clickable="true" />
+
+        <Button
+            android:layout_width="225dp"
+            android:layout_height="85dp"
+            android:text="Add Player/"
+            android:id="@+id/add_player_button"
+            android:layout_gravity="left|center_vertical"
+            android:textSize="32sp"
+            android:clickable="true"
+            android:paddingRight="5dp"
+            android:layout_marginRight="5dp" />
     </FrameLayout>
 </FrameLayout>
